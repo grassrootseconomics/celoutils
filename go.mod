@@ -3,7 +3,7 @@ module github.com/grassrootseconomics/cic-celo-sdk
 go 1.19
 
 require (
-	github.com/ethereum/go-ethereum v1.10.25
+	github.com/ethereum/go-ethereum v1.10.26
 	github.com/lmittmann/w3 v0.10.0
 )
 
