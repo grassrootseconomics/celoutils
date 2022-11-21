@@ -2,6 +2,7 @@ package celo
 
 import (
 	"context"
+	"math/big"
 	"testing"
 )
 
@@ -9,7 +10,7 @@ func TestProvider_GetOptimumGasPrice(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    ProviderOpts
-		want    uint64
+		want    *big.Int
 		wantErr bool
 	}{
 		{
@@ -18,7 +19,7 @@ func TestProvider_GetOptimumGasPrice(t *testing.T) {
 				RpcEndpoint: MainnetRpcEndpoint,
 				ChainId:     MainnetChainId,
 			},
-			want:    1,
+			want:    big.NewInt(1),
 			wantErr: false,
 		},
 		{
@@ -27,7 +28,7 @@ func TestProvider_GetOptimumGasPrice(t *testing.T) {
 				RpcEndpoint: TestnetRpcEndpoint,
 				ChainId:     TestnetChainId,
 			},
-			want:    1,
+			want:    big.NewInt(1),
 			wantErr: false,
 		},
 	}
@@ -44,8 +45,8 @@ func TestProvider_GetOptimumGasPrice(t *testing.T) {
 				t.Errorf("Provider.GetOptimumGasPrice() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if got.Uint64() < tt.want {
-				t.Errorf("Provider.GetOptimumGasPrice() = %v, want greater than %v", got, tt.want)
+			if got.Uint64() < tt.want.Uint64() {
+				t.Errorf("Provider.GetOptimumGasPrice() = %v, want greater than %v", got.Uint64(), tt.want.Uint64())
 			}
 		})
 	}

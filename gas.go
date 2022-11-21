@@ -16,7 +16,7 @@ const (
 	minGasContractTestnet = "0xd0Bf87a5936ee17014a057143a494Dc5C5d51E5e"
 )
 
-func (p *Provider) GetOptimumGasPrice(ctx context.Context) (big.Int, error) {
+func (p *Provider) GetOptimumGasPrice(ctx context.Context) (*big.Int, error) {
 	var (
 		callFunc        *eth.CallFuncFactory
 		optimumGasPrice big.Int
@@ -24,7 +24,7 @@ func (p *Provider) GetOptimumGasPrice(ctx context.Context) (big.Int, error) {
 
 	abi, err := w3.NewFunc("getGasPriceMinimum(address tokenAddress)", "uint256")
 	if err != nil {
-		return big.Int{}, err
+		return big.NewInt(0), nil
 	}
 
 	if p.ChainId == MainnetChainId {
@@ -38,8 +38,8 @@ func (p *Provider) GetOptimumGasPrice(ctx context.Context) (big.Int, error) {
 		callFunc.Returns(&optimumGasPrice),
 	)
 	if err != nil {
-		return big.Int{}, err
+		return big.NewInt(0), nil
 	}
 
-	return optimumGasPrice, nil
+	return &optimumGasPrice, nil
 }

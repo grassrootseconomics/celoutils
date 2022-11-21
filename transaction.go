@@ -11,15 +11,15 @@ import (
 type ContractExecutionTxOpts struct {
 	ContractAddress common.Address
 	InputData       []byte
-	GasPrice        big.Int
+	GasPrice        *big.Int
 	GasLimit        uint64
 	Nonce           uint64
 }
 
 type GasTransferTxOpts struct {
 	To       common.Address
-	Value    big.Int
-	GasPrice big.Int
+	Value    *big.Int
+	GasPrice *big.Int
 	Nonce    uint64
 }
 
@@ -29,7 +29,7 @@ func (p *Provider) SignContractExecutionTx(privateKey *ecdsa.PrivateKey, txData 
 		Nonce:    txData.Nonce,
 		Data:     txData.InputData,
 		Gas:      txData.GasLimit,
-		GasPrice: &txData.GasPrice,
+		GasPrice: txData.GasPrice,
 	})
 	if err != nil {
 		return nil, err
@@ -40,11 +40,11 @@ func (p *Provider) SignContractExecutionTx(privateKey *ecdsa.PrivateKey, txData 
 
 func (p *Provider) SignGasTransferTx(privateKey *ecdsa.PrivateKey, txData GasTransferTxOpts) (*types.Transaction, error) {
 	tx, err := types.SignNewTx(privateKey, p.Signer, &types.LegacyTx{
-		Value:    &txData.Value,
+		Value:    txData.Value,
 		To:       &txData.To,
 		Nonce:    txData.Nonce,
 		Gas:      21000,
-		GasPrice: &txData.GasPrice,
+		GasPrice: txData.GasPrice,
 	})
 	if err != nil {
 		return nil, err

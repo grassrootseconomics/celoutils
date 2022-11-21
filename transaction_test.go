@@ -3,6 +3,7 @@ package celo
 import (
 	"context"
 	"crypto/ecdsa"
+	"math/big"
 	"testing"
 	"time"
 
@@ -147,7 +148,7 @@ func TestProvider_SignGasTransferTx(t *testing.T) {
 				txData: GasTransferTxOpts{
 					// CELO
 					To:       w3.A("0x000000000000000000000000000000000000dEaD"),
-					Value:    *common.Big1,
+					Value:    big.NewInt(1),
 					GasPrice: gasPrice,
 					Nonce:    nonce,
 				},
