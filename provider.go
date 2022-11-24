@@ -3,8 +3,8 @@ package celo
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/lmittmann/w3"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/grassrootseconomics/w3-celo-patch"
 )
 
 const (
