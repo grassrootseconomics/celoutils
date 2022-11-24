@@ -1,5 +1,5 @@
 # cic-celo-sdk
-[![Go](https://github.com/grassrootseconomics/cic-celo-sdk/actions/workflows/go.yml/badge.svg)](https://github.com/grassrootseconomics/cic-celo-sdk/actions/workflows/go.yml)
+[![Go test](https://github.com/grassrootseconomics/cic-celo-sdk/actions/workflows/test.yaml/badge.svg)](https://github.com/grassrootseconomics/cic-celo-sdk/actions/workflows/test.yaml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/grassrootseconomics/cic-celo-sdk.svg)](https://pkg.go.dev/github.com/grassrootseconomics/cic-celo-sdk)
 
 
