@@ -51,6 +51,11 @@ func TestProvider_SignContractExecutionTx(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	gasPrice, err := p.GetOptimumGasPrice(context.Background())
+	if err != nil {
+		t.Fatal("Failed to fetch gas price")
+	}
+
 	type args struct {
 		privateKey *ecdsa.PrivateKey
 		txData     ContractExecutionTxOpts
@@ -69,7 +74,7 @@ func TestProvider_SignContractExecutionTx(t *testing.T) {
 					ContractAddress: w3.A("0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"),
 					InputData:       input,
 					GasLimit:        250000,
-					GasPrice:        FixedMinGas,
+					GasPrice:        gasPrice,
 					Nonce:           nonce,
 				},
 			},
@@ -125,6 +130,11 @@ func TestProvider_SignGasTransferTx(t *testing.T) {
 		t.Fatal("Failed to fetch test account nonce")
 	}
 
+	gasPrice, err := p.GetOptimumGasPrice(context.Background())
+	if err != nil {
+		t.Fatal("Failed to fetch gas price")
+	}
+
 	type args struct {
 		privateKey *ecdsa.PrivateKey
 		txData     GasTransferTxOpts
@@ -141,7 +151,7 @@ func TestProvider_SignGasTransferTx(t *testing.T) {
 				txData: GasTransferTxOpts{
 					To:       deadAddress,
 					Value:    big.NewInt(1),
-					GasPrice: FixedMinGas,
+					GasPrice: gasPrice,
 					Nonce:    nonce,
 				},
 			},
@@ -201,6 +211,11 @@ func TestProvider_SignGasTransferTxWithCUSD(t *testing.T) {
 		t.Fatal("Failed to fetch test account nonce")
 	}
 
+	gasPrice, err := p.GetOptimumGasPrice(context.Background())
+	if err != nil {
+		t.Fatal("Failed to fetch gas price")
+	}
+
 	type args struct {
 		privateKey *ecdsa.PrivateKey
 		txData     types.TxData
@@ -218,7 +233,7 @@ func TestProvider_SignGasTransferTxWithCUSD(t *testing.T) {
 					To:          &deadAddress,
 					Nonce:       nonce,
 					Gas:         21000 + 50000,
-					GasPrice:    FixedMinGas,
+					GasPrice:    gasPrice,
 					FeeCurrency: &cUSD,
 				},
 			},
