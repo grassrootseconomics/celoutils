@@ -10,6 +10,8 @@ Go Celo SDK to interact with GE CIC components and build custom solutions around
 
 Also see [`w3-celo-patch`](https://github.com/grassrootseconomics/w3-celo-patch).
 
+Note: Tests are run e2e on the live testnet.
+
 ## License
 
 AGPL-3.0-or-later
