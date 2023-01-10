@@ -1,8 +1,9 @@
 name: Go test
 
 on:
-  - push
-
+  push:
+    tags:
+      - "v*"
 jobs:
   test:
     name: Test
