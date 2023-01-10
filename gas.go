@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	FixedMinGas = big.NewInt(100000001)
+	FixedMinGas = big.NewInt(500000001)
 )
 
 func (p *Provider) GetOptimumGasPrice(ctx context.Context) (*big.Int, error) {
