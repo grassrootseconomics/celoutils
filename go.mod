@@ -3,8 +3,8 @@ module github.com/grassrootseconomics/cic-celo-sdk
 go 1.19
 
 require (
-	github.com/celo-org/celo-blockchain v1.6.1
-	github.com/grassrootseconomics/w3-celo-patch v0.1.0
+	github.com/celo-org/celo-blockchain v1.7.2
+	github.com/grassrootseconomics/w3-celo-patch v0.2.0
 )
 
 require (
@@ -12,7 +12,13 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20180116203802-5d049714c4a6 // indirect
 	github.com/VictoriaMetrics/fastcache v1.6.0 // indirect
 	github.com/btcsuite/btcd v0.20.1-beta // indirect
-	github.com/celo-org/celo-bls-go v0.2.4 // indirect
+	github.com/celo-org/celo-bls-go v0.3.3 // indirect
+	github.com/celo-org/celo-bls-go-android v0.3.2 // indirect
+	github.com/celo-org/celo-bls-go-ios v0.3.2 // indirect
+	github.com/celo-org/celo-bls-go-linux v0.3.2 // indirect
+	github.com/celo-org/celo-bls-go-macos v0.3.2 // indirect
+	github.com/celo-org/celo-bls-go-other v0.3.2 // indirect
+	github.com/celo-org/celo-bls-go-windows v0.3.2 // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
 	github.com/deckarep/golang-set v1.8.0 // indirect
 	github.com/go-ole/go-ole v1.2.5 // indirect
