@@ -3,14 +3,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/grassrootseconomics/cic-celo-sdk.svg)](https://pkg.go.dev/github.com/grassrootseconomics/cic-celo-sdk)
 
 
-Go Celo SDK to interact with GE CIC components and build custom solutions around them
-
-- Gas price querying utilities.
-- Transaction building utilities compatible with Celo including ERC20 gas payments.
-
-Also see [`w3-celo-patch`](https://github.com/grassrootseconomics/w3-celo-patch).
-
-Note: Tests are run e2e on the live testnet.
+High level Go wrapper for [w3](https://github.com/grassrootseconomics/w3-celo-patch) with transaction building utilities among others.
 
 ## License
 
