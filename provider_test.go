@@ -4,11 +4,6 @@ import (
 	"testing"
 )
 
-const (
-	TestnetRpcEndpoint = "https://alfajores-forno.celo-testnet.org"
-	MainnetRpcEndpoint = "https://forno.celo.org"
-)
-
 func TestNewProvider(t *testing.T) {
 	type args struct {
 		o ProviderOpts
@@ -23,7 +18,7 @@ func TestNewProvider(t *testing.T) {
 			args: args{
 				ProviderOpts{
 					ChainId:     TestnetChainId,
-					RpcEndpoint: TestnetRpcEndpoint,
+					RpcEndpoint: "https://alfajores-forno.celo-testnet.org",
 				},
 			},
 			wantErr: false,

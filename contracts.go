@@ -7,6 +7,6 @@ const (
 	CUSDContractMainnet = "0x765DE816845861e75A25fCA122bb6898B8B1282a"
 	CUSDContractTestnet = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"
 
-	minGasContractMainnet = "0xDfca3a8d7699D8bAfe656823AD60C17cb8270ECC"
-	minGasContractTestnet = "0xd0Bf87a5936ee17014a057143a494Dc5C5d51E5e"
+	MinGasContractMainnet = "0xDfca3a8d7699D8bAfe656823AD60C17cb8270ECC"
+	MinGasContractTestnet = "0xd0Bf87a5936ee17014a057143a494Dc5C5d51E5e"
 )
