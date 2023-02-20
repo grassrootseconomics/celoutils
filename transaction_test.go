@@ -1,4 +1,4 @@
-package celo
+package celoutils
 
 import (
 	"crypto/ecdsa"

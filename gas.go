@@ -1,4 +1,4 @@
-package celo
+package celoutils
 
 import (
 	"math/big"

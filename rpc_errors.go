@@ -1,4 +1,4 @@
-package celo
+package celoutils
 
 // Common error strings returned by v1 of celo-blockchain nodes.
 const (

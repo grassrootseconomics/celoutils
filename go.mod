@@ -1,4 +1,4 @@
-module github.com/grassrootseconomics/cic-celo-sdk
+module github.com/grassrootseconomics/celoutils
 
 go 1.19
 
