@@ -12,10 +12,11 @@ import (
 // HexToAddress is similar to [common.HexToAddress] but converts to a checksumed address first.
 // It is necessary to perform an address validation first before using HexToAddress e.g. with go-playground/validator.
 func HexToAddress(hexAddress string) common.Address {
-	return common.HexToAddress(checksumAddress(hexAddress))
+	return common.HexToAddress(ChecksumAddress(hexAddress))
 }
 
-func checksumAddress(address string) string {
+// ChecksumAddress converts a mixed case hex address string to a checksumed one.
+func ChecksumAddress(address string) string {
 	address = strings.ToLower(address)
 	address = strings.Replace(address, "0x", "", 1)
 
