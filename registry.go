@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/celo-org/celo-blockchain/common"
-	"github.com/grassrootseconomics/w3-celo-patch"
-	"github.com/grassrootseconomics/w3-celo-patch/module/eth"
+	"github.com/grassrootseconomics/w3-celo"
+	"github.com/grassrootseconomics/w3-celo/module/eth"
 )
 
 const (
@@ -30,11 +30,11 @@ func (p *Provider) RegistryMap(ctx context.Context, registryAddress common.Addre
 
 	err := p.Client.CallCtx(
 		ctx,
-		eth.CallFunc(listFunc, registryAddress, common.BytesToHash(common.RightPadBytes([]byte(AccountIndex), 32))).Returns(&accountIndexAddress),
-		eth.CallFunc(listFunc, registryAddress, common.BytesToHash(common.RightPadBytes([]byte(CustodialProxy), 32))).Returns(&custodialProxy),
-		eth.CallFunc(listFunc, registryAddress, common.BytesToHash(common.RightPadBytes([]byte(GasFaucet), 32))).Returns(&gasFaucetAddress),
-		eth.CallFunc(listFunc, registryAddress, common.BytesToHash(common.RightPadBytes([]byte(TokenIndex), 32))).Returns(&tokenIndexAddress),
-		eth.CallFunc(listFunc, registryAddress, common.BytesToHash(common.RightPadBytes([]byte(TrainingVoucher), 32))).Returns(&trainingVoucherAddress),
+		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(AccountIndex), 32))).Returns(&accountIndexAddress),
+		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(CustodialProxy), 32))).Returns(&custodialProxy),
+		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(GasFaucet), 32))).Returns(&gasFaucetAddress),
+		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(TokenIndex), 32))).Returns(&tokenIndexAddress),
+		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(TrainingVoucher), 32))).Returns(&trainingVoucherAddress),
 	)
 	if err != nil {
 		return nil, err
