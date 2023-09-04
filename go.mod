@@ -1,4 +1,4 @@
-module github.com/grassrootseconomics/celoutils
+module github.com/grassrootseconomics/celoutils/v2
 
 go 1.21
 
