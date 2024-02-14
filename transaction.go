@@ -8,22 +8,33 @@ import (
 	"github.com/celo-org/celo-blockchain/core/types"
 )
 
-type ContractExecutionTxOpts struct {
-	ContractAddress common.Address
-	InputData       []byte
-	GasFeeCap       *big.Int
-	GasTipCap       *big.Int
-	GasLimit        uint64
-	Nonce           uint64
-}
+type (
+	ContractExecutionTxOpts struct {
+		ContractAddress common.Address
+		InputData       []byte
+		GasFeeCap       *big.Int
+		GasTipCap       *big.Int
+		GasLimit        uint64
+		Nonce           uint64
+	}
 
-type GasTransferTxOpts struct {
-	To        common.Address
-	Value     *big.Int
-	GasFeeCap *big.Int
-	GasTipCap *big.Int
-	Nonce     uint64
-}
+	GasTransferTxOpts struct {
+		To        common.Address
+		Value     *big.Int
+		GasFeeCap *big.Int
+		GasTipCap *big.Int
+		Nonce     uint64
+	}
+
+	ContractPublishTxOpts struct {
+		ContractByteCode        []byte
+		ContractConstructorArgs []byte
+		GasFeeCap               *big.Int
+		GasTipCap               *big.Int
+		GasLimit                uint64
+		Nonce                   uint64
+	}
+)
 
 func (p *Provider) SignContractExecutionTx(privateKey *ecdsa.PrivateKey, txData ContractExecutionTxOpts) (*types.Transaction, error) {
 	tx, err := types.SignNewTx(privateKey, p.Signer, &types.CeloDynamicFeeTx{
@@ -47,6 +58,21 @@ func (p *Provider) SignGasTransferTx(privateKey *ecdsa.PrivateKey, txData GasTra
 		To:        &txData.To,
 		Nonce:     txData.Nonce,
 		Gas:       21000,
+		GasFeeCap: txData.GasFeeCap,
+		GasTipCap: txData.GasTipCap,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return tx, nil
+}
+
+func (p *Provider) SignContractPublishTx(privateKey *ecdsa.PrivateKey, txData ContractPublishTxOpts) (*types.Transaction, error) {
+	tx, err := types.SignNewTx(privateKey, p.Signer, &types.CeloDynamicFeeTx{
+		Data:      append(txData.ContractByteCode, txData.ContractConstructorArgs...),
+		Nonce:     txData.Nonce,
+		Gas:       txData.GasLimit,
 		GasFeeCap: txData.GasFeeCap,
 		GasTipCap: txData.GasTipCap,
 	})
