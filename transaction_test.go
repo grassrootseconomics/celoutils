@@ -125,6 +125,68 @@ func TestProvider_SignGasTransferTx(t *testing.T) {
 	}
 }
 
+func TestProvider_SignContractPublishTx(t *testing.T) {
+	p, err := NewProvider(ProviderOpts{
+		ChainId:     TestnetChainId,
+		RpcEndpoint: testNetRpc,
+	})
+	if err != nil {
+		t.Fatal("RPC endpoint parsing failed")
+	}
+
+	privateKey, err := crypto.HexToECDSA(privateKey)
+	if err != nil {
+		t.Fatalf("Failed to parse private key %v", err)
+	}
+
+	contractBytecode, err := PrepareContractBytecodeData(
+		"6080604052348015600f57600080fd5b5060405160ee38038060ee8339818101604052810190602d91906069565b505060a2565b600080fd5b6000819050919050565b6049816038565b8114605357600080fd5b50565b6000815190506063816042565b92915050565b60008060408385031215607d57607c6033565b5b60006089858286016056565b92505060206098858286016056565b9150509250929050565b603f8060af6000396000f3fe6080604052600080fdfea26469706673582212207b3c6ed6af876cf2dec1553939d6f993c60f20d2cd459bc2f3e6aed8f87fa31a64736f6c63430008180033",
+		`[{"inputs": [{"internalType": "uint256","name": "a","type": "uint256"	},{	"internalType": "uint256","name": "b","type": "uint256"}],"stateMutability": "nonpayable","type": "constructor"}]`,
+		[]any{
+			w3.Big1,
+			w3.Big2,
+		},
+	)
+	if err != nil {
+		t.Fatalf("Failed to prepare contract bytecode data %v", err)
+	}
+
+	type args struct {
+		privateKey *ecdsa.PrivateKey
+		txData     ContractPublishTxOpts
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Sign contract publish",
+			args: args{
+				privateKey: privateKey,
+				txData: ContractPublishTxOpts{
+					ContractByteCode: contractBytecode,
+					GasFeeCap:        SafeGasFeeCap,
+					GasTipCap:        SafeGasTipCap,
+					GasLimit:         1_000_000,
+					Nonce:            0,
+				},
+			},
+			wantErr: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := p.SignContractPublishTx(tt.args.privateKey, tt.args.txData)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Provider.SignContractPublishTx() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
+
 func TestProvider_SignGasTransferTxPayWithCUSD(t *testing.T) {
 	cUSD := w3.A(CUSDContractTestnet)
 

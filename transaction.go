@@ -27,12 +27,11 @@ type (
 	}
 
 	ContractPublishTxOpts struct {
-		ContractByteCode        []byte
-		ContractConstructorArgs []byte
-		GasFeeCap               *big.Int
-		GasTipCap               *big.Int
-		GasLimit                uint64
-		Nonce                   uint64
+		ContractByteCode []byte
+		GasFeeCap        *big.Int
+		GasTipCap        *big.Int
+		GasLimit         uint64
+		Nonce            uint64
 	}
 )
 
@@ -70,7 +69,7 @@ func (p *Provider) SignGasTransferTx(privateKey *ecdsa.PrivateKey, txData GasTra
 
 func (p *Provider) SignContractPublishTx(privateKey *ecdsa.PrivateKey, txData ContractPublishTxOpts) (*types.Transaction, error) {
 	tx, err := types.SignNewTx(privateKey, p.Signer, &types.CeloDynamicFeeTx{
-		Data:      append(txData.ContractByteCode, txData.ContractConstructorArgs...),
+		Data:      txData.ContractByteCode,
 		Nonce:     txData.Nonce,
 		Gas:       txData.GasLimit,
 		GasFeeCap: txData.GasFeeCap,
