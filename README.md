@@ -5,6 +5,21 @@
 
 High level Go wrapper for [w3](https://github.com/grassrootseconomics/w3-celo) with transaction building utilities among others.
 
+Features:
+
+* Publishing smart contracts
+* Gas transfers
+* Smart contract interactions
+* RPC error messages
+* Address conversion/parsing utilities
+* CICRegistry loader
+
+## Installation
+
+```bash
+$ go get github.com/grassrootseconomics/celoutils/v2
+```
+
 ## License
 
-AGPL-3.0-or-later
+[AGPL-3.0](LICENSE)
