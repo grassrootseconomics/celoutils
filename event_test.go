@@ -13,28 +13,37 @@ func TestEventSignatureHash(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want string
+		want EventSignature
 	}{
 		{
 			name: "Transfer Event variant 1",
 			args: args{
 				event: "Transfer(address,address,uint256)",
 			},
-			want: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+			want: EventSignature{
+				Signature: "Transfer(address,address,uint256)",
+				Hash:      "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+			},
 		},
 		{
 			name: "Transfer Event variant 2",
 			args: args{
 				event: "Transfer(address indexed _from, address indexed _to, uint256 _value)",
 			},
-			want: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+			want: EventSignature{
+				Signature: "Transfer(address,address,uint256)",
+				Hash:      "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+			},
 		},
 		{
 			name: "Transfer Event variant 3",
 			args: args{
 				event: "Transfer(address indexed _from, address indexed _to, uint256 _value)",
 			},
-			want: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+			want: EventSignature{
+				Signature: "Transfer(address,address,uint256)",
+				Hash:      "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+			},
 		},
 	}
 	for _, tt := range tests {
@@ -62,9 +71,15 @@ func TestEventSignatureHashesFromABI(t *testing.T) {
 	// https://www.4byte.directory/event-signatures
 	// 253837 	received(address,uint256,bytes) 	0x75fd880d39c1daf53b6547ab6cb59451fc6452d27caa90e5b6649dd8293b9eed
 	// 253838 	receivedAddr(address) 	0x46923992397eac56cf13058aced2a1871933622717e27b24eabc13bf9dd329c8
-	want := []string{
-		"0x75fd880d39c1daf53b6547ab6cb59451fc6452d27caa90e5b6649dd8293b9eed",
-		"0x46923992397eac56cf13058aced2a1871933622717e27b24eabc13bf9dd329c8",
+	want := []EventSignature{
+		{
+			Signature: "received(address,uint256,bytes)",
+			Hash:      "0x75fd880d39c1daf53b6547ab6cb59451fc6452d27caa90e5b6649dd8293b9eed",
+		},
+		{
+			Signature: "receivedAddr(address)",
+			Hash:      "0x46923992397eac56cf13058aced2a1871933622717e27b24eabc13bf9dd329c8",
+		},
 	}
 
 	json := `[{"constant":false,"inputs":[{"name":"memo","type":"bytes"}],"name":"receive","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"sender","type":"address"},{"indexed":false,"name":"amount","type":"uint256"},{"indexed":false,"name":"memo","type":"bytes"}],"name":"received","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"sender","type":"address"}],"name":"receivedAddr","type":"event"}]`
