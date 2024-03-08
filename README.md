@@ -13,6 +13,7 @@ Features:
 * RPC error messages
 * Address conversion/parsing utilities
 * CICRegistry loader
+* Event signature processing
 
 ## Installation
 
