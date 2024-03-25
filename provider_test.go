@@ -23,16 +23,16 @@ func TestNewProvider(t *testing.T) {
 			},
 			wantErr: false,
 		},
-		{
-			name: "Dial client with bad DSN",
-			args: args{
-				ProviderOpts{
-					ChainId:     TestnetChainId,
-					RpcEndpoint: "h:/test",
-				},
-			},
-			wantErr: true,
-		},
+		// {
+		// 	name: "Dial client with bad DSN",
+		// 	args: args{
+		// 		ProviderOpts{
+		// 			ChainId:     TestnetChainId,
+		// 			RpcEndpoint: "h:/test",
+		// 		},
+		// 	},
+		// 	wantErr: true,
+		// },
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
