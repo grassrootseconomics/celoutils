@@ -2,12 +2,17 @@ package celoutils
 
 import (
 	"math/big"
+	"net/http"
+	"time"
 
 	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/rpc"
 	"github.com/grassrootseconomics/w3-celo"
 )
 
 const (
+	slaTimeout = 5 * time.Second
+
 	MainnetChainId int64 = 42220
 	TestnetChainId int64 = 44787
 )
@@ -24,14 +29,20 @@ type Provider struct {
 }
 
 func NewProvider(o ProviderOpts) (*Provider, error) {
-	client, err := w3.Dial(o.RpcEndpoint)
+	rpcClient, err := rpc.DialHTTPWithClient(o.RpcEndpoint, customHTTPClient())
 	if err != nil {
 		return nil, err
 	}
 
 	return &Provider{
 		ChainId: o.ChainId,
-		Client:  client,
+		Client:  w3.NewClient(rpcClient),
 		Signer:  types.NewLondonSigner(big.NewInt(o.ChainId)),
 	}, nil
+}
+
+func customHTTPClient() *http.Client {
+	return &http.Client{
+		Timeout: slaTimeout,
+	}
 }
