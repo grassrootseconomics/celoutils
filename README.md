@@ -13,7 +13,8 @@ Features:
 * RPC error messages
 * Address conversion/parsing utilities
 * CICRegistry loader
-* Event signature processing
+* ABI parser (event and method signatures)
+* Dump reverted tx reason
 
 ## Installation
 
