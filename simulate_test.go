@@ -1,0 +1,60 @@
+package celoutils
+
+import (
+	"context"
+	"math/big"
+	"testing"
+
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/grassrootseconomics/w3-celo"
+)
+
+var (
+	testRpc = "https://celo.grassecon.net"
+)
+
+func TestProvider_SimulateRevertedTx(t *testing.T) {
+	p, err := NewProvider(ProviderOpts{
+		ChainId:     MainnetChainId,
+		RpcEndpoint: testRpc,
+	})
+	if err != nil {
+		t.Fatal("RPC endpoint parsing failed")
+	}
+
+	type args struct {
+		txHash      common.Hash
+		blockNumber *big.Int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "Reverted reason",
+			args: args{
+				txHash:      w3.H("0x30cc64b374656e517b161bd0d24d5bb401e9b018b30d864f437fa14ac879c1b0"),
+				blockNumber: big.NewInt(24925269),
+			},
+			want:    "ERC20: transfer amount exceeds balance",
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		//
+		t.SkipNow()
+		//
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := p.SimulateRevertedTx(context.Background(), tt.args.txHash, tt.args.blockNumber)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Provider.SimulateRevertedTx() error = %v, wantErr %v, got = %s", err, tt.wantErr, got)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Provider.SimulateRevertedTx() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
