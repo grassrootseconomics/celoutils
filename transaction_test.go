@@ -43,9 +43,10 @@ func TestProvider_SignContractExecutionTx(t *testing.T) {
 		txData     ContractExecutionTxOpts
 	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
+		name     string
+		args     args
+		wantErr  bool
+		wantType uint8
 	}{
 		{
 			name: "Sign ERC20 transfer",
@@ -61,15 +62,19 @@ func TestProvider_SignContractExecutionTx(t *testing.T) {
 					Nonce:           0,
 				},
 			},
-			wantErr: false,
+			wantErr:  false,
+			wantType: 2,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := p.SignContractExecutionTx(tt.args.privateKey, tt.args.txData)
+			tx, err := p.SignContractExecutionTx(tt.args.privateKey, tt.args.txData)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Provider.SignContractExecutionTx() error = %v, wantErr %v", err, tt.wantErr)
 				return
+			}
+			if tx.Type() != tt.wantType {
+				t.Errorf("Provider.SignContractExecutionTx() want type = %d, got %d", tt.wantType, tx.Type())
 			}
 		})
 	}
@@ -94,9 +99,10 @@ func TestProvider_SignGasTransferTx(t *testing.T) {
 		txData     GasTransferTxOpts
 	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
+		name     string
+		args     args
+		wantErr  bool
+		wantType uint8
 	}{
 		{
 			name: "Sign gas transfer",
@@ -110,16 +116,20 @@ func TestProvider_SignGasTransferTx(t *testing.T) {
 					Nonce:     0,
 				},
 			},
-			wantErr: false,
+			wantErr:  false,
+			wantType: 2,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := p.SignGasTransferTx(tt.args.privateKey, tt.args.txData)
+			tx, err := p.SignGasTransferTx(tt.args.privateKey, tt.args.txData)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Provider.SignGasTransferTx() error = %v, wantErr %v", err, tt.wantErr)
 				return
+			}
+			if tx.Type() != tt.wantType {
+				t.Errorf("Provider.SignContractExecutionTx() want type = %d, got %d", tt.wantType, tx.Type())
 			}
 		})
 	}
@@ -146,9 +156,10 @@ func TestProvider_SignGasTransferTxPayWithCUSD(t *testing.T) {
 		txData     types.TxData
 	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
+		name     string
+		args     args
+		wantErr  bool
+		wantType uint8
 	}{
 		{
 			name: "Sign gas transfer, pay with cUSD",
@@ -163,15 +174,19 @@ func TestProvider_SignGasTransferTxPayWithCUSD(t *testing.T) {
 					Nonce:       0,
 				},
 			},
-			wantErr: false,
+			wantErr:  false,
+			wantType: 123,
 		},
 	}
 
 	for _, tt := range tests {
-		_, err := types.SignNewTx(tt.args.privateKey, p.Signer, tt.args.txData)
+		tx, err := types.SignNewTx(tt.args.privateKey, p.Signer, tt.args.txData)
 		if (err != nil) != tt.wantErr {
 			t.Errorf("types.SignNewTx error = %v, wantErr %v", err, tt.wantErr)
 			return
+		}
+		if tx.Type() != tt.wantType {
+			t.Errorf("Provider.SignContractExecutionTx() want type = %d, got %d", tt.wantType, tx.Type())
 		}
 	}
 }

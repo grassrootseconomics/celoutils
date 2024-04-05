@@ -26,7 +26,7 @@ type GasTransferTxOpts struct {
 }
 
 func (p *Provider) SignContractExecutionTx(privateKey *ecdsa.PrivateKey, txData ContractExecutionTxOpts) (*types.Transaction, error) {
-	tx, err := types.SignNewTx(privateKey, p.Signer, &types.CeloDynamicFeeTx{
+	tx, err := types.SignNewTx(privateKey, p.Signer, &types.DynamicFeeTx{
 		To:        &txData.ContractAddress,
 		Nonce:     txData.Nonce,
 		Data:      txData.InputData,
@@ -42,7 +42,7 @@ func (p *Provider) SignContractExecutionTx(privateKey *ecdsa.PrivateKey, txData 
 }
 
 func (p *Provider) SignGasTransferTx(privateKey *ecdsa.PrivateKey, txData GasTransferTxOpts) (*types.Transaction, error) {
-	tx, err := types.SignNewTx(privateKey, p.Signer, &types.CeloDynamicFeeTx{
+	tx, err := types.SignNewTx(privateKey, p.Signer, &types.DynamicFeeTx{
 		Value:     txData.Value,
 		To:        &txData.To,
 		Nonce:     txData.Nonce,
