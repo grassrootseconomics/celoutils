@@ -15,6 +15,7 @@ Features:
 * CICRegistry loader
 * ABI parser (event and method signatures)
 * Dump reverted tx reason
+* CELO/ERC20 Balances scanner
 
 ## Installation
 
