@@ -37,7 +37,7 @@ func NewProvider(o ProviderOpts) (*Provider, error) {
 	return &Provider{
 		ChainId: o.ChainId,
 		Client:  w3.NewClient(rpcClient),
-		Signer:  types.NewLondonSigner(big.NewInt(o.ChainId)),
+		Signer:  types.LatestSignerForChainID(big.NewInt(o.ChainId)),
 	}, nil
 }
 
