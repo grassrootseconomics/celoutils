@@ -14,6 +14,7 @@ const (
 	GasFaucet       = "GasFaucet"
 	TrainingVoucher = "TrainingVoucher"
 	TokenIndex      = "TokenIndex"
+	PoolIndex       = "PoolIndex"
 )
 
 // RegistryMap auto-loads all well known custodial related smart contract addresses through the CICRegistry pointer contract.
@@ -26,6 +27,7 @@ func (p *Provider) RegistryMap(ctx context.Context, registryAddress common.Addre
 		gasFaucetAddress       common.Address
 		tokenIndexAddress      common.Address
 		trainingVoucherAddress common.Address
+		poolIndex              common.Address
 	)
 
 	err := p.Client.CallCtx(
@@ -35,6 +37,7 @@ func (p *Provider) RegistryMap(ctx context.Context, registryAddress common.Addre
 		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(GasFaucet), 32))).Returns(&gasFaucetAddress),
 		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(TokenIndex), 32))).Returns(&tokenIndexAddress),
 		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(TrainingVoucher), 32))).Returns(&trainingVoucherAddress),
+		eth.CallFunc(registryAddress, listFunc, common.BytesToHash(common.RightPadBytes([]byte(PoolIndex), 32))).Returns(&poolIndex),
 	)
 	if err != nil {
 		return nil, err
@@ -46,6 +49,7 @@ func (p *Provider) RegistryMap(ctx context.Context, registryAddress common.Addre
 	registryMap[GasFaucet] = gasFaucetAddress
 	registryMap[TokenIndex] = tokenIndexAddress
 	registryMap[TrainingVoucher] = trainingVoucherAddress
+	registryMap[PoolIndex] = poolIndex
 
 	return registryMap, nil
 }
