@@ -18,8 +18,9 @@ const (
 )
 
 type ProviderOpts struct {
-	ChainId     int64
-	RpcEndpoint string
+	ChainId          int64
+	RpcEndpoint      string
+	CustomHTTPClient *http.Client
 }
 
 type Provider struct {
@@ -29,7 +30,11 @@ type Provider struct {
 }
 
 func NewProvider(o ProviderOpts) (*Provider, error) {
-	rpcClient, err := rpc.DialHTTPWithClient(o.RpcEndpoint, customHTTPClient())
+	if o.CustomHTTPClient == nil {
+		o.CustomHTTPClient = defaultHTTPClient()
+	}
+
+	rpcClient, err := rpc.DialHTTPWithClient(o.RpcEndpoint, o.CustomHTTPClient)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +46,7 @@ func NewProvider(o ProviderOpts) (*Provider, error) {
 	}, nil
 }
 
-func customHTTPClient() *http.Client {
+func defaultHTTPClient() *http.Client {
 	return &http.Client{
 		Timeout: slaTimeout,
 	}
