@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/celo-org/celo-blockchain/common"
+	"github.com/ethereum/go-ethereum/common"
 	"golang.org/x/crypto/sha3"
 )
 

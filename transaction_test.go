@@ -5,9 +5,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/celo-org/celo-blockchain/core/types"
-	"github.com/celo-org/celo-blockchain/crypto"
-	"github.com/grassrootseconomics/w3-celo"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/lmittmann/w3"
 )
 
 // Throwaway test keys.
@@ -205,59 +204,59 @@ func TestProvider_SignContractPublishTx(t *testing.T) {
 	}
 }
 
-func TestProvider_SignGasTransferTxPayWithCUSD(t *testing.T) {
-	cUSD := w3.A(CUSDContractTestnet)
+// func TestProvider_SignGasTransferTxPayWithCUSD(t *testing.T) {
+// 	cUSD := w3.A(CUSDContractTestnet)
 
-	p, err := NewProvider(ProviderOpts{
-		ChainId:     TestnetChainId,
-		RpcEndpoint: testNetRpc,
-	})
-	if err != nil {
-		t.Fatal("RPC endpoint parsing failed")
-	}
+// 	p, err := NewProvider(ProviderOpts{
+// 		ChainId:     TestnetChainId,
+// 		RpcEndpoint: testNetRpc,
+// 	})
+// 	if err != nil {
+// 		t.Fatal("RPC endpoint parsing failed")
+// 	}
 
-	privateKey, err := crypto.HexToECDSA(privateKey)
-	if err != nil {
-		t.Fatalf("Failed to parse private key %v", err)
-	}
+// 	privateKey, err := crypto.HexToECDSA(privateKey)
+// 	if err != nil {
+// 		t.Fatalf("Failed to parse private key %v", err)
+// 	}
 
-	type args struct {
-		privateKey *ecdsa.PrivateKey
-		txData     types.TxData
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantErr  bool
-		wantType uint8
-	}{
-		{
-			name: "Sign gas transfer, pay with cUSD",
-			args: args{
-				privateKey: privateKey,
-				txData: &types.CeloDynamicFeeTxV2{
-					To:          &deadAddress,
-					Gas:         21000 + 50000,
-					FeeCurrency: &cUSD,
-					GasFeeCap:   SafeGasFeeCap,
-					GasTipCap:   SafeGasTipCap,
-					Nonce:       0,
-				},
-			},
-			wantErr:  false,
-			wantType: 123,
-		},
-	}
+// 	type args struct {
+// 		privateKey *ecdsa.PrivateKey
+// 		txData     types.TxData
+// 	}
+// 	tests := []struct {
+// 		name     string
+// 		args     args
+// 		wantErr  bool
+// 		wantType uint8
+// 	}{
+// 		{
+// 			name: "Sign gas transfer, pay with cUSD",
+// 			args: args{
+// 				privateKey: privateKey,
+// 				txData: &types.CeloDynamicFeeTxV2{
+// 					To:          &deadAddress,
+// 					Gas:         21000 + 50000,
+// 					FeeCurrency: &cUSD,
+// 					GasFeeCap:   SafeGasFeeCap,
+// 					GasTipCap:   SafeGasTipCap,
+// 					Nonce:       0,
+// 				},
+// 			},
+// 			wantErr:  false,
+// 			wantType: 123,
+// 		},
+// 	}
 
-	for _, tt := range tests {
-		tx, err := types.SignNewTx(tt.args.privateKey, p.Signer, tt.args.txData)
-		if (err != nil) != tt.wantErr {
-			t.Errorf("types.SignNewTx error = %v, wantErr %v", err, tt.wantErr)
-			return
-		}
+// 	for _, tt := range tests {
+// 		tx, err := types.SignNewTx(tt.args.privateKey, p.Signer, tt.args.txData)
+// 		if (err != nil) != tt.wantErr {
+// 			t.Errorf("types.SignNewTx error = %v, wantErr %v", err, tt.wantErr)
+// 			return
+// 		}
 
-		if tx.Type() != tt.wantType {
-			t.Errorf("Provider.SignGasTransferTxPayWithCUSD() want type = %d, got %d", tt.wantType, tx.Type())
-		}
-	}
-}
+// 		if tx.Type() != tt.wantType {
+// 			t.Errorf("Provider.SignGasTransferTxPayWithCUSD() want type = %d, got %d", tt.wantType, tx.Type())
+// 		}
+// 	}
+// }

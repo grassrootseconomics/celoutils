@@ -1,13 +1,14 @@
 package celoutils
 
 import (
+	"context"
 	"math/big"
 	"net/http"
 	"time"
 
-	"github.com/celo-org/celo-blockchain/core/types"
-	"github.com/celo-org/celo-blockchain/rpc"
-	"github.com/grassrootseconomics/w3-celo"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/lmittmann/w3"
 )
 
 const (
@@ -34,7 +35,11 @@ func NewProvider(o ProviderOpts) (*Provider, error) {
 		o.CustomHTTPClient = defaultHTTPClient()
 	}
 
-	rpcClient, err := rpc.DialHTTPWithClient(o.RpcEndpoint, o.CustomHTTPClient)
+	rpcClient, err := rpc.DialOptions(
+		context.Background(),
+		o.RpcEndpoint,
+		rpc.WithHTTPClient(o.CustomHTTPClient),
+	)
 	if err != nil {
 		return nil, err
 	}

@@ -5,10 +5,10 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/celo-org/celo-blockchain/common"
-	"github.com/celo-org/celo-blockchain/core/types"
-	"github.com/grassrootseconomics/w3-celo/module/eth"
-	"github.com/grassrootseconomics/w3-celo/w3types"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/lmittmann/w3/module/eth"
+	"github.com/lmittmann/w3/w3types"
 )
 
 // SimulateRevertedTx attempts to simulate a reverted tx and dump its revert reason
@@ -25,7 +25,7 @@ func (p *Provider) SimulateRevertedTx(ctx context.Context, txHash common.Hash, b
 		return "", err
 	}
 
-	txMsg, err := tx.AsMessage(p.Signer, nil)
+	from, err := types.Sender(p.Signer, &tx)
 	if err != nil {
 		return "", err
 	}
@@ -33,7 +33,7 @@ func (p *Provider) SimulateRevertedTx(ctx context.Context, txHash common.Hash, b
 	if err := p.Client.CallCtx(
 		ctx,
 		eth.Call(&w3types.Message{
-			From:     txMsg.From(),
+			From:     from,
 			To:       tx.To(),
 			Input:    tx.Data(),
 			Gas:      tx.Gas(),

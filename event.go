@@ -3,7 +3,7 @@ package celoutils
 import (
 	"strings"
 
-	"github.com/grassrootseconomics/w3-celo"
+	"github.com/lmittmann/w3"
 )
 
 type (

@@ -3,7 +3,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/grassrootseconomics/celoutils.svg)](https://pkg.go.dev/github.com/grassrootseconomics/celoutils)
 
 
-High level Go wrapper for [w3](https://github.com/grassrootseconomics/w3-celo) with transaction building utilities among others.
+High level Go wrapper for [w3](https://github.com/lmittmann/w3) with transaction building utilities among others.
 
 Features:
 

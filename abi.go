@@ -3,7 +3,7 @@ package celoutils
 import (
 	"io"
 
-	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 )
 
 type (

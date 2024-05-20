@@ -3,8 +3,8 @@ package celoutils
 import (
 	"strings"
 
-	"github.com/celo-org/celo-blockchain/accounts/abi"
-	"github.com/celo-org/celo-blockchain/common"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/common"
 )
 
 func PrepareContractBytecodeData(contractBin string, contractABIJSON string, constructorArgs []any) ([]byte, error) {

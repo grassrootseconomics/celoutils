@@ -5,8 +5,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/celo-org/celo-blockchain/common"
-	"github.com/grassrootseconomics/w3-celo"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/lmittmann/w3"
 )
 
 var (
