@@ -6,7 +6,7 @@ import (
 )
 
 func TestGrassroots_RegistryMap(t *testing.T) {
-	p := NewProvider("https://forno.celo.org", CeloMainnet)
+	p := NewProvider("https://api.tatum.io/v3/blockchain/node/celo-mainnet", CeloMainnet)
 
 	rMap, err := p.RegistryMap(context.Background(), SarafuNetworkRegistry)
 	if err != nil {
@@ -16,7 +16,7 @@ func TestGrassroots_RegistryMap(t *testing.T) {
 }
 
 func TestGrassroots_GetGESmartContracts(t *testing.T) {
-	p := NewProvider("https://forno.celo.org", CeloMainnet)
+	p := NewProvider("https://api.tatum.io/v3/blockchain/node/celo-mainnet", CeloMainnet)
 
 	aMap, err := p.GetGESmartContracts(context.Background(), []string{
 		SarafuNetworkRegistry.Hex(),

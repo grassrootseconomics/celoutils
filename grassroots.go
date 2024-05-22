@@ -30,7 +30,8 @@ var (
 	entryCountFunc      = w3.MustNewFunc("entryCount()", "uint256")
 	entrySig            = w3.MustNewFunc("entry(uint256 _idx)", "address")
 
-	ZeroAddress           = w3.A("0x0000000000000000000000000000000000000000")
+	ZeroAddress common.Address
+
 	SarafuNetworkRegistry = w3.A("0xd1FB944748aca327a1ba036B082993D9dd9Bfa0C")
 	CustodialRegistry     = w3.A("0x0cc9f4fff962def35bb34a53691180b13e653030")
 )

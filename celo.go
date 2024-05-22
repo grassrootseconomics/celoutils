@@ -1,6 +1,8 @@
 package celoutils
 
-import "math/big"
+import (
+	"math/big"
+)
 
 const (
 	ErrInsufficientGas = "w3: call failed: insufficient funds for gas * price + value + gatewayFee"
