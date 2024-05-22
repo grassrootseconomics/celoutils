@@ -4,8 +4,8 @@ go 1.22.3
 
 require (
 	github.com/celo-org/celo-blockchain v1.8.4
-	github.com/grassrootseconomics/w3-celo v0.17.0
-	golang.org/x/crypto v0.23.0
+	github.com/grassrootseconomics/w3-celo v0.17.2
+	golang.org/x/crypto v0.21.0
 )
 
 require (
