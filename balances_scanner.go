@@ -4,9 +4,9 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/lmittmann/w3"
-	"github.com/lmittmann/w3/module/eth"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/grassrootseconomics/w3-celo"
+	"github.com/grassrootseconomics/w3-celo/module/eth"
 )
 
 type (

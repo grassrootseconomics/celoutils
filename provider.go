@@ -1,58 +1,42 @@
 package celoutils
 
 import (
-	"context"
 	"math/big"
-	"net/http"
-	"time"
 
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/lmittmann/w3"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/grassrootseconomics/w3-celo"
 )
 
-const (
-	slaTimeout = 5 * time.Second
+type (
+	Option func(c *Provider)
 
-	MainnetChainId int64 = 42220
-	TestnetChainId int64 = 44787
+	Provider struct {
+		Client *w3.Client
+		Signer types.Signer
+	}
 )
 
-type ProviderOpts struct {
-	ChainId          int64
-	RpcEndpoint      string
-	CustomHTTPClient *http.Client
+func WithSigner(signer types.Signer) Option {
+	return func(p *Provider) {
+		p.Signer = signer
+	}
 }
 
-type Provider struct {
-	Client  *w3.Client
-	Signer  types.Signer
-	ChainId int64
+func WithClient(w3Client *w3.Client) Option {
+	return func(p *Provider) {
+		p.Client = w3Client
+	}
 }
 
-func NewProvider(o ProviderOpts) (*Provider, error) {
-	if o.CustomHTTPClient == nil {
-		o.CustomHTTPClient = defaultHTTPClient()
+func NewProvider(url string, chainID int64, opts ...Option) *Provider {
+	defaultProvider := &Provider{
+		Client: w3.MustDial(url),
+		Signer: types.LatestSignerForChainID(big.NewInt(chainID)),
 	}
 
-	rpcClient, err := rpc.DialOptions(
-		context.Background(),
-		o.RpcEndpoint,
-		rpc.WithHTTPClient(o.CustomHTTPClient),
-	)
-	if err != nil {
-		return nil, err
+	for _, opt := range opts {
+		opt(defaultProvider)
 	}
 
-	return &Provider{
-		ChainId: o.ChainId,
-		Client:  w3.NewClient(rpcClient),
-		Signer:  types.LatestSignerForChainID(big.NewInt(o.ChainId)),
-	}, nil
-}
-
-func defaultHTTPClient() *http.Client {
-	return &http.Client{
-		Timeout: slaTimeout,
-	}
+	return defaultProvider
 }

@@ -4,21 +4,12 @@ import (
 	"context"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/lmittmann/w3"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/grassrootseconomics/w3-celo"
 )
 
 func TestProvider_TokensBalance(t *testing.T) {
-	//
-	t.SkipNow()
-	//
-	p, err := NewProvider(ProviderOpts{
-		ChainId:     MainnetChainId,
-		RpcEndpoint: "https://rpc.ankr.com/celo",
-	})
-	if err != nil {
-		t.Fatal("RPC endpoint parsing failed")
-	}
+	p := NewProvider("https://forno.celo.org", CeloMainnet)
 
 	tokens := []common.Address{
 		w3.A("0x02cc0715E844a45bA56Ad391D92DCd6537315177"),
@@ -28,7 +19,7 @@ func TestProvider_TokensBalance(t *testing.T) {
 
 	balances, err := p.TokensBalance(context.Background(), w3.A("0x0030cfF17fAf04a4Bb0657d47999099B3cbF9ccc"), tokens)
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 	t.Log(balances)
 }

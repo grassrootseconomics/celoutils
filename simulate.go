@@ -5,10 +5,10 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/lmittmann/w3/module/eth"
-	"github.com/lmittmann/w3/w3types"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/grassrootseconomics/w3-celo/module/eth"
+	"github.com/grassrootseconomics/w3-celo/w3types"
 )
 
 // SimulateRevertedTx attempts to simulate a reverted tx and dump its revert reason

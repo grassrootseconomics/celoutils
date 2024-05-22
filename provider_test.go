@@ -4,44 +4,17 @@ import (
 	"testing"
 )
 
-func TestNewProvider(t *testing.T) {
-	type args struct {
-		o ProviderOpts
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		{
-			name: "Dial client",
-			args: args{
-				ProviderOpts{
-					ChainId:     TestnetChainId,
-					RpcEndpoint: "https://alfajores-forno.celo-testnet.org",
-				},
-			},
-			wantErr: false,
-		},
-		// {
-		// 	name: "Dial client with bad DSN",
-		// 	args: args{
-		// 		ProviderOpts{
-		// 			ChainId:     TestnetChainId,
-		// 			RpcEndpoint: "h:/test",
-		// 		},
-		// 	},
-		// 	wantErr: true,
-		// },
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := NewProvider(tt.args.o)
+func TestNewProvider_NoPanic(t *testing.T) {
+	NewProvider("https://forno.celo.org", CeloMainnet)
+}
 
-			if (err != nil) != tt.wantErr {
-				t.Errorf("NewProvider() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-		})
-	}
+func TestNewProvider_Panic(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Error("expected panic on bad url")
+		}
+	}()
+
+	NewProvider("not://a.good.url", CeloMainnet)
+
 }

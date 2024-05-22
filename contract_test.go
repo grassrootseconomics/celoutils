@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/lmittmann/w3"
+	"github.com/grassrootseconomics/w3-celo"
 )
 
 func TestEncodeConstructorArgsFromContractABIReader(t *testing.T) {
