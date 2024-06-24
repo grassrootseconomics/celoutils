@@ -31,6 +31,7 @@ var (
 	entrySig            = w3.MustNewFunc("entry(uint256 _idx)", "address")
 
 	ZeroAddress common.Address
+	ZeroHash    common.Hash
 
 	SarafuNetworkRegistry = w3.A("0xd1FB944748aca327a1ba036B082993D9dd9Bfa0C")
 	CustodialRegistry     = w3.A("0x0cc9f4fff962def35bb34a53691180b13e653030")

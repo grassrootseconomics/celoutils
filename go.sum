@@ -81,6 +81,8 @@ github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWm
 github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/grassrootseconomics/w3-celo v0.17.2 h1:sEBlOe/H2F6YvBRTGD/kiObVqUFW7AczbzC8xxsVLDY=
 github.com/grassrootseconomics/w3-celo v0.17.2/go.mod h1:M3KJaj25DspF9siaqNXyamAuzC5DmWXx74tpyPp+R4Y=
+github.com/grassrootseconomics/w3-celo v0.18.0 h1:gO5iK/KP4qrwIGDbKY9k57wnh/dSIvcHTU9lAEHSXbg=
+github.com/grassrootseconomics/w3-celo v0.18.0/go.mod h1:M3KJaj25DspF9siaqNXyamAuzC5DmWXx74tpyPp+R4Y=
 github.com/hashicorp/golang-lru v0.5.5-0.20210104140557-80c98217689d h1:dg1dEPuWpEqDnvIw251EVy4zlP8gWbsGj4BsUKCRpYs=
 github.com/hashicorp/golang-lru v0.5.5-0.20210104140557-80c98217689d/go.mod h1:iADmTwqILo4mZ8BN3D2Q6+9jd8WM5uGBxy+E8yxSoD4=
 github.com/hdevalence/ed25519consensus v0.0.0-20201207055737-7fde80a9d5ff h1:LeVKjw8pcDQj7WVVnbFvbD7ovcv+r/l15ka1NH6Lswc=
